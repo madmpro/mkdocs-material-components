@@ -1,14 +1,18 @@
-{% import "partials/language.html" as lang %}
-<!DOCTYPE html>
+{#-
+  This file was automatically generated - do not edit
+-#}
+{% import "partials/language.html" as lang with context %}
+{% set feature = config.theme.feature %}
+{% set palette = config.theme.palette %}
+{% set font = config.theme.font %}
+<!doctype html>
 <html lang="{{ lang.t('language') }}" class="no-js">
   <head>
     {% block site_meta %}
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       <meta http-equiv="x-ua-compatible" content="ie=edge">
-      {% if config.extra.noindex %}
-        <meta name="robots" content="noindex,nofollow">
-      {% endif %}
+
       {% if page and page.meta.description %}
         <meta name="description" content="{{ page.meta.description | first }}">
       {% elif config.site_description %}
@@ -27,7 +31,7 @@
       {% else %}
         <link rel="shortcut icon" href="{{ base_url }}/assets/images/favicon.png">
       {% endif %}
-      <meta name="generator" content="mkdocs-{{ mkdocs_version }}, mkdocs-material-components-1.10.11">
+      <meta name="generator" content="mkdocs-{{ mkdocs_version }}, mkdocs-material-components-4.4.0">
     {% endblock %}
     {% block htmltitle %}
       {% if page and page.meta.title %}
@@ -137,7 +141,7 @@
               </div>
             {% endif %}
           {% endblock %}
-          <div id="article-content" class="md-content"> 
+          <div id="article-content" class="md-content">
             <article class="md-content__inner md-typeset">
               {% block content %}
                 {% if config.edit_uri %}
@@ -165,7 +169,7 @@
               {% block disqus %}
                 {% if config.extra.disqus and not page.is_homepage %}
                   <h2 id="__comments">{{ lang.t("meta.comments") }}</h2>
-                  {% include "partials/disqus.html" %}
+                  {% include "partials/integrations/disqus.html" %}
                 {% endif %}
               {% endblock %}
             </article>
@@ -201,12 +205,9 @@
       <script src="{{ base_url }}/assets/javascripts/jq-mdc-web.js"></script>
       <script src="https://cdn.jsdelivr.net/jquery.loadingoverlay/latest/loadingoverlay.min.js"></script>
       <script>app.initialize({version:"{{ mkdocs_version }}",url:{base:"{{ base_url }}"}})</script>
-      {% for path in extra_javascript %}
-        <script src="{{ path }}"></script>
+      {% for path in config["extra_javascript"] %}
+        <script src="{{ path | url }}"></script>
       {% endfor %}
     {% endblock %}
-    {% if config.google_analytics %}
-    <script>var links=document.getElementsByTagName("a");Array.prototype.map.call(links,function(e){e.host!=document.location.host&&e.addEventListener("click",function(){var t=e.getAttribute("data-md-action")||"follow";gtag("event",t,{event_category:"docs-outbound",event_label:e.href})})});var query=document.forms.search.query;query.addEventListener("blur",function(){if(this.value){var e=document.location.pathname;gtag("event","page_view",{event_category:"docs-search",event_label:e+"?q="+this.value,value:e+"?q="+this.value})}})</script>
-    {% endif %}
   </body>
 </html>
