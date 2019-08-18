@@ -61,7 +61,6 @@ material/partials/language.html
 material/partials/nav-item.html
 material/partials/nav.html
 material/partials/palette.html
-material/partials/password.html
 material/partials/search.html
 material/partials/social.html
 material/partials/source.html
